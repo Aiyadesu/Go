@@ -10,9 +10,7 @@ type Stringer interface {
 }
 
 func (ipAddress IPAddr) String() string {
-	const FULLSTOP_SEPERATOR = ".";
-	ipAddressString := string(ipAddress[0]) + FULLSTOP_SEPERATOR + string(ipAddress[1]) + FULLSTOP_SEPERATOR + string(ipAddress[2]) + FULLSTOP_SEPERATOR + string(ipAddress[3]);
-	return ipAddressString;
+	return fmt.Sprintf("%d.%d.%d.%d", ipAddress[0], ipAddress[1], ipAddress[2], ipAddress[3]);
 }
 
 func main() {
