@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"strings"
 	"golang.org/x/tour/reader"
 )
 
@@ -13,24 +10,16 @@ type read interface {
 	Read(byte) (int, error)
 }
 
-func (MyReader) Read([]byte) (int, error) {
-	reader := strings.NewReader("A");
+// Refactored to use 'AntoineAugsti's solution: https://github.com/AntoineAugusti/go-exercices/blob/master/7-exercise-reader.go
+func (MyReader) Read(byteArray []byte) (int, error) {
+	byteArray = byteArray[:cap(byteArray)];
 
-	myByte := make([]byte, 8)
-
-	for {
-		n, err := reader.Read(myByte);
-		fmt.Printf("n = %v err = %v b = %v\n", n, err, myByte);
-		fmt.Printf("B[:n] = %q\n", myByte[:n]);
-
-		if err == io.EOF {
-			break;
-		}
+	for index := range byteArray {
+		byteArray[index] = 'A';
 	}
 
-	return 0, nil;
+	return cap(byteArray), nil;
 }
-// TODO: Add a Read([]byte) (int, error) method to MyReader.
 
 func main() {
 	reader.Validate(MyReader{})
